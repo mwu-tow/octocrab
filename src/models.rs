@@ -3,6 +3,7 @@
 use std::collections::HashMap;
 use std::fmt;
 use std::ops::{Deref, DerefMut};
+use std::str::FromStr;
 
 use chrono::{DateTime, Utc};
 use serde::{de, Deserialize, Deserializer, Serialize};
@@ -48,6 +49,12 @@ macro_rules! id_type {
         impl fmt::Display for $name {
             fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
                 self.0.fmt(f)
+            }
+        }
+        impl FromStr for $name {
+            type Err = <BaseIdType as FromStr>::Err;
+            fn from_str(s: &str) -> std::result::Result<Self, Self::Err> {
+                BaseIdType::from_str(s).map(Self)
             }
         }
         impl Deref for $name {

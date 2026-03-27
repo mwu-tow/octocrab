@@ -1058,7 +1058,7 @@ pub type OctocrabService = Buffer<
 /// The GitHub API client.
 #[derive(Clone)]
 pub struct Octocrab {
-    client: OctocrabService,
+    pub client: OctocrabService,
     auth_state: AuthState,
 }
 
